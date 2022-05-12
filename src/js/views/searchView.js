@@ -8,16 +8,34 @@ export const clearResults = () => {
     elements.searchResultPages.innerHTML = '';
 }
 
+const recipesTitleModify = (title, limit = 17) => {
+    const temp = new Array;
+
+    if(title.length > limit){
+        title.split(' ').reduce((acc, cur) => {
+            if(acc + cur.length <= limit){
+                console.log(acc, cur.length)
+                temp.push(cur)
+            }
+            return acc + cur.length;
+        },0);
+        return `${temp.join(' ')} ...`
+    } else {
+        return title
+    }
+    
+}
+
 const renderRecipe = (recipe) => {
     
     const markUp = `
         <li>
-            <a class="results__link results__link" href="${recipe.recipe_id}">
+            <a class="results__link results__link" href="#${recipe.recipe_id}">
                 <figure class="results__fig">
                     <img src="${recipe.image_url}" alt="Test">
                 </figure>
                 <div class="results__data">
-                    <h4 class="results__name">${recipe.title}</h4>
+                    <h4 class="results__name">${recipesTitleModify(recipe.title)}</h4>
                     <p class="results__author">${recipe.publisher}</p>
                 </div>
             </a>
@@ -52,7 +70,7 @@ const renderButton = (page, numResults, resPerPage) => {
     }
     elements.searchResultPages.insertAdjacentHTML('afterbegin', button);
 }
-export const renderResult = (recipes, page = 6, resPerPage = 5) => {
+export const renderResult = (recipes, page = 1, resPerPage = 5) => {
 
     const start = (page -1) * resPerPage;
     const end = page * resPerPage;
@@ -60,3 +78,4 @@ export const renderResult = (recipes, page = 6, resPerPage = 5) => {
 
     renderButton(page, recipes.length, resPerPage);
 }
+
