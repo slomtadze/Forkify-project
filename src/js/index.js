@@ -1,5 +1,6 @@
 // Global app controllers
 
+import Recipe from "./models/recipe";
 import Search from "./models/search";
 import { clearLoaders, elements, renderLoader } from "./views/base";
 import * as searchView from "./views/searchView";
@@ -28,6 +29,15 @@ const controlSearch = async () => {
     } 
 }
 
+const controlRecipe = async () => {
+    const id = window.location.hash.replace('#','');
+
+    if(id){
+        state.recipe = new Recipe(id);
+        await state.recipe.getRecipe();
+    }
+}
+
 elements.searchForm.addEventListener('submit', (e) => {
     e.preventDefault();
     controlSearch();
@@ -41,5 +51,10 @@ elements.searchResultPages.addEventListener('click', (e) => {
         searchView.renderResult(state.search.result, goToPage);
     }
         
+});
+
+window.addEventListener('hashchange', () => {
+    controlRecipe();
+
 })
 

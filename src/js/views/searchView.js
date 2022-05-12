@@ -14,7 +14,6 @@ const recipesTitleModify = (title, limit = 17) => {
     if(title.length > limit){
         title.split(' ').reduce((acc, cur) => {
             if(acc + cur.length <= limit){
-                console.log(acc, cur.length)
                 temp.push(cur)
             }
             return acc + cur.length;
