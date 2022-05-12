@@ -36,7 +36,7 @@ const controlRecipe = async () => {
     if(id){
         recipeView.clearRecipe();
         renderLoader(elements.recipe);
-        searchView.activeLinkStyle(id)
+        state.search && searchView.activeLinkStyle(id)
 
         state.recipe = new Recipe(id);
 
@@ -69,6 +69,8 @@ elements.searchResultPages.addEventListener('click', (e) => {
 
 window.addEventListener('hashchange', () => {
     controlRecipe();
-
+})
+window.addEventListener('load', () => {
+    controlRecipe()
 })
 
