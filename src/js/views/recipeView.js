@@ -1,5 +1,9 @@
 import { elements } from "./base";
 
+export const clearRecipe = () => {
+    elements.recipe.innerHTML = '';
+}
+
 const createIngredients = (ingredients) => {
     return `
         <li class="recipe__item">       
