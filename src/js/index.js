@@ -36,10 +36,17 @@ const controlRecipe = async () => {
     if(id){
         recipeView.clearRecipe();
         renderLoader(elements.recipe);
-        
+        searchView.activeLinkStyle(id)
+
         state.recipe = new Recipe(id);
-        await state.recipe.getRecipe();
+
+        try {
+            await state.recipe.getRecipe();
+        } catch (error) {
+            alert(`controlRecipe error`)
+        }
         
+
         clearLoaders();
         recipeView.renderRecipe(state.recipe);
     }

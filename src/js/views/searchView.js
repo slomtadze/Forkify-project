@@ -8,6 +8,13 @@ export const clearResults = () => {
     elements.searchResultPages.innerHTML = '';
 }
 
+export const activeLinkStyle = (id) => {
+    const linkArr = [...document.querySelectorAll('.results__link')];
+    linkArr.forEach(el => el.classList.remove('results__link--active'));
+
+    document.querySelector(`a[href="#${id}"]`).classList.add('results__link--active')
+}
+
 const recipesTitleModify = (title, limit = 17) => {
     const temp = new Array;
 
