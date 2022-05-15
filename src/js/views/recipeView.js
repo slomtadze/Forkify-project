@@ -13,10 +13,10 @@ const createIngredients = (ingredients) => {
             <svg class="recipe__icon">
                 <use href="img/icons.svg#icon-check"></use>
             </svg>
-            <div class="recipe__count">unit</div>
+            <div class="recipe__count">${ingredients.count}</div>
             <div class="recipe__ingredient">
-                <span class="recipe__unit">unit</span>
-                ${ingredients}
+                <span class="recipe__unit">${ingredients.unit}</span>
+                ${ingredients.ing}
             </div>
         </li>
     `;    
