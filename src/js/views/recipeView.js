@@ -4,13 +4,16 @@ export const clearRecipe = () => {
     elements.recipe.innerHTML = '';
 }
 
+//Parse Ingredients into an Object
+
+
 const createIngredients = (ingredients) => {
     return `
         <li class="recipe__item">       
             <svg class="recipe__icon">
                 <use href="img/icons.svg#icon-check"></use>
             </svg>
-            <div class="recipe__count">count</div>
+            <div class="recipe__count">unit</div>
             <div class="recipe__ingredient">
                 <span class="recipe__unit">unit</span>
                 ${ingredients}

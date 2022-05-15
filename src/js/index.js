@@ -46,8 +46,7 @@ const controlRecipe = async () => {
             alert(`controlRecipe error`)
         }
         
-        
-        
+        state.recipe.parseIngredients();       
         clearLoaders();
         recipeView.renderRecipe(state.recipe);
         
