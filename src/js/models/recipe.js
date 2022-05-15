@@ -19,5 +19,72 @@ export default class Recipe {
             alert(`class ${error}`)
         }
         
+    } 
+       
+    parseIngredients(){
+
+        const newIngredients = this.ingredients.map(el => {
+            let ingredient = el.replace(/\([\s\S]+\)./,'')
+
+            const ingArr = [];
+
+            //get count
+
+            const regex = /\d.+\d|\d/g; 
+            if(regex.test(ingredient) == true){
+                const count = ingredient.match(regex)[0];
+                    if(count.length > 3){
+                            ingArr.push(+eval(`${count.match(/\d/)[0]} + ${count.match(/\d\/\d/)[0]}`).toFixed(1));
+                        }else if(count.length === 1){
+                            ingArr.push(+eval(count));
+                        }else{
+                            ingArr.push(+eval(count).toFixed(1));
+                        }
+            }else{
+                ingArr.push(1); 
+            };
+            // get unit small
+
+            if(/tablespoons?/gi.test(ingredient) == true){
+                ingArr.push('Tbsp');
+            }else if(/teaspoons?/gi.test(ingredient) == true){
+                ingArr.push('Tsp');
+            }else if(/ounces?/gi.test(ingredient) == true){
+                ingArr.push('Oz');
+            }else if(/cups?/gi.test(ingredient) == true){
+                ingArr.push('Cup');
+            } else{
+                ingArr.push('');
+            }
+        
+            // get ingredient 
+
+            const arr = [/\d.+\d.|\d./,/tablespoons?./i,/teaspoons?./i,/ounces?./i,/cups?./i]
+                arr.forEach(el => {
+                ingredient = ingredient.replace(el,'')    
+            })
+            ingArr.push(ingredient)
+            
+            const [count,unit,ing] = ingArr;
+            
+            const objIng = {
+                count,
+                unit,
+                ing,
+            }
+            return objIng
+        })
+        
+        this.ingredients = newIngredients;
     }
+
+
+
+
+
+
+
+
 }
+
+

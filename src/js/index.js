@@ -46,9 +46,11 @@ const controlRecipe = async () => {
             alert(`controlRecipe error`)
         }
         
-
+        
+        
         clearLoaders();
         recipeView.renderRecipe(state.recipe);
+        
     }
 }
 
