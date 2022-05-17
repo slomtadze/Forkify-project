@@ -20,6 +20,17 @@ export default class Recipe {
         }
         
     } 
+    calcTime(){
+        const numIng = this.ingredients.length;
+        const periods = Math.ceil(numIng / 3);
+        this.time = periods * 15
+    }
+    calcServings(){
+        this.servings = 4;
+    }
+    updateServings(condition){
+        condition === 'dec' ? this.servings -=1 : this.servings +=1
+    }
        
     parseIngredients(){
 
@@ -35,7 +46,7 @@ export default class Recipe {
                 const count = ingredient.match(regex)[0];
                     if(count.length > 3){
                             ingArr.push(+eval(`${count.match(/\d/)[0]} + ${count.match(/\d\/\d/)[0]}`).toFixed(1));
-                        }else if(count.length === 1){
+                        }else if(count.length == 1){
                             ingArr.push(+eval(count));
                         }else{
                             ingArr.push(+eval(count).toFixed(1));
@@ -77,11 +88,6 @@ export default class Recipe {
         
         this.ingredients = newIngredients;
     }
-
-
-
-
-
 
 
 

@@ -46,7 +46,9 @@ const controlRecipe = async () => {
             alert(`controlRecipe error`)
         }
         
-        state.recipe.parseIngredients();       
+        state.recipe.parseIngredients();
+        state.recipe.calcTime();
+        state.recipe.calcServings();       
         clearLoaders();
         recipeView.renderRecipe(state.recipe);
         
@@ -73,5 +75,18 @@ window.addEventListener('hashchange', () => {
 })
 window.addEventListener('load', () => {
     controlRecipe()
+})
+
+elements.recipe.addEventListener('click', e => {
+    if(e.target.matches('.btn-tiny-decrease, .btn-tiny-decrease *')){
+        if(state.recipe.servings > 1) {
+            state.recipe.updateServings('dec');
+            recipeView.updateServings(state.recipe);
+        }
+    };
+    if(e.target.matches('.btn-tiny-increase, .btn-tiny-increase *')){
+        state.recipe.updateServings('inc');
+        recipeView.updateServings(state.recipe);
+    }
 })
 
