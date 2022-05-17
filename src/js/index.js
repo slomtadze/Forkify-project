@@ -5,6 +5,7 @@ import Search from "./models/search";
 import { clearLoaders, elements, renderLoader } from "./views/base";
 import * as searchView from "./views/searchView";
 import * as recipeView from "./views/recipeView";
+import List from "./models/list";
 
 
  
@@ -29,6 +30,7 @@ const controlSearch = async () => {
 
     } 
 }
+
 
 const controlRecipe = async () => {
     const id = window.location.hash.replace('#','');
@@ -80,13 +82,16 @@ window.addEventListener('load', () => {
 elements.recipe.addEventListener('click', e => {
     if(e.target.matches('.btn-tiny-decrease, .btn-tiny-decrease *')){
         if(state.recipe.servings > 1) {
-            state.recipe.updateServings('dec');
-            recipeView.updateServings(state.recipe);
+            state.recipe.updateServingIngredients('dec');
+            recipeView.updateServingsIngredients(state.recipe);
         }
     };
     if(e.target.matches('.btn-tiny-increase, .btn-tiny-increase *')){
-        state.recipe.updateServings('inc');
-        recipeView.updateServings(state.recipe);
+        state.recipe.updateServingIngredients('inc');
+        recipeView.updateServingsIngredients(state.recipe);
+    };
+    if(e.target.matches('.recipe__btn, .recipe__btn *')){
+        
     }
 })
 

@@ -28,8 +28,14 @@ export default class Recipe {
     calcServings(){
         this.servings = 4;
     }
-    updateServings(condition){
-        condition === 'dec' ? this.servings -=1 : this.servings +=1
+    updateServingIngredients(condition){
+        const newServings = condition === 'dec' ? this.servings -1 : this.servings +1;
+
+        this.ingredients.forEach(ing => {
+            ing.count *= (newServings / this.servings) 
+        })
+
+        this.servings = newServings;
     }
        
     parseIngredients(){
