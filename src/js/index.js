@@ -62,6 +62,8 @@ const controlRecipe = async () => {
 const controlList = () => {
     if(!state.list) state.list = new List();
 
+    listview.clearShoppingList();
+
     state.recipe.ingredients.forEach(el => {
         const item = state.list.addItems(el.count, el.unit, el.ing)
         listview.rednderItem(item);
@@ -116,8 +118,9 @@ elements.shopping.addEventListener('click', e => {
         state.list.deleteItem(id);
         listview.deleteItem(id);
     };
-    if(e.target.matches('.shopping__count-value')){
-
+    if(e.target.matches('.shopping__count__input')){
+        const newValue = +e.target.value;
+        state.list.updateItem(id, newValue);
     }
 
 })
