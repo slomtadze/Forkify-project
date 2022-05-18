@@ -3,10 +3,12 @@
 import Recipe from "./models/recipe";
 import Search from "./models/search";
 import List from "./models/list";
+import { Like } from "./models/like";
 import { clearLoaders, elements, renderLoader } from "./views/base";
 import * as searchView from "./views/searchView";
 import * as recipeView from "./views/recipeView";
 import * as listview from "./views/listview";
+
 
 
 
@@ -59,6 +61,21 @@ const controlRecipe = async () => {
     }
 }
 
+const controlLike = () => {
+    if(!state.like) state.like = new Like();
+
+    if(state.like.isNotLiked(state.recipe.id)){
+        state.like.addItem(
+            state.recipe.id,
+            state.recipe.title,
+            state.recipe.author,
+            state.recipe.img
+            );
+    }else{
+        state.like.deleteItem(state.recipe.id)
+    }
+}
+
 const controlList = () => {
     if(!state.list) state.list = new List();
 
@@ -106,13 +123,15 @@ elements.recipe.addEventListener('click', e => {
     };
     if(e.target.matches('.recipe__btn__add, .recipe__btn__add *')){
         controlList();
+    };
+    if(e.target.matches('.recipe__love, .recipe__love *')){
+        controlLike();
     }
 })
 
 elements.shopping.addEventListener('click', e => {
 
     const id = e.target.closest('.shopping__item').dataset.itemid;
-
     
     if(e.target.matches('.shopping__delete, .shopping__delete *')){
         state.list.deleteItem(id);
@@ -122,5 +141,5 @@ elements.shopping.addEventListener('click', e => {
         const newValue = +e.target.value;
         state.list.updateItem(id, newValue);
     }
-
 })
+
