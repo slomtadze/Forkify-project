@@ -107,3 +107,17 @@ elements.recipe.addEventListener('click', e => {
     }
 })
 
+elements.shopping.addEventListener('click', e => {
+
+    const id = e.target.closest('.shopping__item').dataset.itemid;
+
+    
+    if(e.target.matches('.shopping__delete, .shopping__delete *')){
+        state.list.deleteItem(id);
+        listview.deleteItem(id);
+    };
+    if(e.target.matches('.shopping__count-value')){
+
+    }
+
+})
