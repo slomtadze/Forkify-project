@@ -50,7 +50,7 @@ export const updateServingsIngredients = (recipe) => {
     })
 }
 
-export const renderRecipe = (recipe) => {
+export const renderRecipe = (recipe, isNotLiked) => {
     const markUp = `
     <figure class="recipe__fig">
     <img src="${recipe.img}" alt="${recipe.title}" class="recipe__img">
@@ -89,7 +89,7 @@ export const renderRecipe = (recipe) => {
     </div>
     <button class="recipe__love">
         <svg class="header__likes">
-            <use href="img/icons.svg#icon-heart-outlined"></use>
+            <use href="img/icons.svg#icon-heart${isNotLiked ? "-outlined" : ''}"></use>
         </svg>
     </button>
 </div>

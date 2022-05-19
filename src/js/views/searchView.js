@@ -15,7 +15,7 @@ export const activeLinkStyle = (id) => {
     document.querySelector(`a[href="#${id}"]`).classList.add('results__link--active')
 }
 
-const recipesTitleModify = (title, limit = 17) => {
+export const recipesTitleModify = (title, limit = 17) => {
     const temp = new Array;
 
     if(title.length > limit){

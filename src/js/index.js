@@ -8,6 +8,7 @@ import { clearLoaders, elements, renderLoader } from "./views/base";
 import * as searchView from "./views/searchView";
 import * as recipeView from "./views/recipeView";
 import * as listview from "./views/listview";
+import * as likeview from "./views/likeView";
 
 
 
@@ -38,6 +39,8 @@ const controlSearch = async () => {
 
 const controlRecipe = async () => {
     const id = window.location.hash.replace('#','');
+
+    
     
     if(id){
         recipeView.clearRecipe();
@@ -56,7 +59,7 @@ const controlRecipe = async () => {
         state.recipe.calcTime();
         state.recipe.calcServings();       
         clearLoaders();
-        recipeView.renderRecipe(state.recipe);
+        recipeView.renderRecipe(state.recipe, state.like.isNotLiked(id));
         
     }
 }
@@ -64,15 +67,23 @@ const controlRecipe = async () => {
 const controlLike = () => {
     if(!state.like) state.like = new Like();
 
-    if(state.like.isNotLiked(state.recipe.id)){
-        state.like.addItem(
+    const currentId = state.recipe.id
+    if(state.like.isNotLiked(currentId)){
+        const item = state.like.addItem(
             state.recipe.id,
             state.recipe.title,
             state.recipe.author,
             state.recipe.img
-            );
+            );     
+        
+        likeview.toggleLikeBtn(true);
+        likeview.renderItem(item);
     }else{
-        state.like.deleteItem(state.recipe.id)
+        state.like.deleteItem(currentId);
+        
+        likeview.toggleLikeBtn(false);
+
+        likeview.deleteItem(currentId)
     }
 }
 
@@ -107,7 +118,11 @@ window.addEventListener('hashchange', () => {
     controlRecipe();
 })
 window.addEventListener('load', () => {
+    
+    state.like = new Like;
     controlRecipe()
+
+    
 })
 
 elements.recipe.addEventListener('click', e => {
@@ -125,6 +140,7 @@ elements.recipe.addEventListener('click', e => {
         controlList();
     };
     if(e.target.matches('.recipe__love, .recipe__love *')){
+        console.log(e.target)
         controlLike();
     }
 })
