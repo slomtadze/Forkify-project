@@ -78,6 +78,7 @@ const controlLike = () => {
         
         likeview.toggleLikeBtn(true);
         likeview.renderItem(item);
+        
     }else{
         state.like.deleteItem(currentId);
         
@@ -120,6 +121,8 @@ window.addEventListener('hashchange', () => {
 window.addEventListener('load', () => {
     
     state.like = new Like;
+    state.like.readStorage();
+    state.like.likes.forEach(item => likeview.renderItem(item))
     controlRecipe()
 
     
